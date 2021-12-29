@@ -452,4 +452,57 @@
     - 空字符串
 
       - “”，两个连在一块的双引号，数组的长度是1，表示空字符串
+
+    - 字符串指针
+
+      - char **a；
+        - a是一个指针，指向另一个指针，那个指针指向一个字符或 字符串
+
+    - main函数的参数
+
+      ```c
+      int main（int argc，char const *argv[]）；
+      ```
+
+      - c语言的数组没法自己告诉自己多大，整型参数argc用于告知argv数组多大
+      - 其中的argc和argv都不是固定的，可以改为a，b之类的
+      - argv是用于存放指令的，其中的const最好有，最后输出是操作系统对这个可执行文件执行的指令们
+      - 因为在unix中，可以给文件取别名，所以知道是通过什么样的方法运行程序的
+        - 所以argv的[0]是输入的可执行程序的名字
+
+  - 单字符输入输出
+
+    - putchar
+      - int putchar （int c）；
+      - 输出一个字符
+      - 它的参数输入是int类型不是char类型，但是int能够接受的只是一个字符
+        - 不是一次能够接受4个字符
+        - 返回值是int，表示输出几个字符
+          - 一般来说都是返回1，但是如果出现输出不能用了，那么会返回EOF，end of file，在c语言中定义为一个宏，值是-1，表示不能输出东西了，表示写失败
+        - 一般不用检查putchar的输出和返回
+    - getchar
+      - int getchar（void）；
+        - 从标准输入读入一个字符
+      - 返回类型是int是为了返回EOF
+        - 为什么返回int不是char，因为EOF是-1
+      - ctrl+C 强制程序结束
+        - shell直接关闭程序
+      - ctrl+D 表示EOF的状态（macOS，unix）
+        - 注意都是shell得到EOF的意思
+      - ctrl+Z 表示EOF的状态（windows）
+      - getchar不会我们输入一个字它蹦出一个字
+        - 因为用户的键盘输入后，到的是shell，shell是行编辑，获取回车之后，shell再把这一行内容给程序，程序执行之后把结果给shell，shell再给屏幕
+      - getchar和scanf都是在shell给的缓冲区里读东西，用户的输入其实就是往shell中填入东西
+
+  - 字符串函数（标准库中的函数）（string.h）
+
+    - strlen
+      - length，知道字符串长度，不包括结尾的0
+      - size_t strlen (const char *s)
+        - const用于不修改传入的数组
       - 
+    - strcmp
+    - strcpy
+    - strcat
+    - strchr
+    - Strata
