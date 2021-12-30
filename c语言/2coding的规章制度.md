@@ -497,12 +497,43 @@
   - 字符串函数（标准库中的函数）（string.h）
 
     - strlen
+
       - length，知道字符串长度，不包括结尾的0
       - size_t strlen (const char *s)
         - const用于不修改传入的数组
-      - 
+
     - strcmp
+
+      - int strcmp(const char *s1,const char *s2)
+      - 0: s1==s2
+      - 1: s1>s2
+      - -1: s1<s2
+      - int返回的值是两个数组第一个出现不同的时候，这个字符ascii相差的大小
+
     - strcpy
+
+      - char *strcpy(char *restrict dst,const char *restrict src);
+
+        - strcpy*是为了方便这个运算结果给其他的用
+
+      - 把 src（源）的字符串拷贝到dst（目的），restrict表明src和dst内存不重叠
+
+      - 返回dst （目的）
+
+      - 这是一个被深度优化的函数，至关重要，被多核心优化过，用多核心写入，这样必须防止内存重叠
+
+      - ```c
+        char *dst = (char*)malloc(strlen(src)+1);//+1是因为有0，空间需要+1
+        strcpy(dst,src);
+        ```
+
     - strcat
+
+      - char *strcat(char *restrict s1,const char *restrict s2);
+      - 讲s2拷贝到s1后面，连接成为一个长的字符串
+      - 返回s1
+      - s1要有足够的空间
+
     - strchr
+
     - Strata
