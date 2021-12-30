@@ -1,4 +1,4 @@
-# coding的规章制度
+# `coding`的规章制度
 
 ## 语言规范
 
@@ -512,38 +512,110 @@
       - 带n的版本
         - int strncmp(const char *s1,const char *s2, size_t n);
         - 比较前n个字符，无所谓安全的版本
-    
+
     - strcpy
-    
+
       - char *strcpy(char *restrict dst,const char *restrict src);
-    
+
         - strcpy*是为了方便这个运算结果给其他的用
-    
+
       - 把 src（源）的字符串拷贝到dst（目的），restrict表明src和dst内存不重叠
-    
+
       - 返回dst （目的）
-    
+
       - 这是一个被深度优化的函数，至关重要，被多核心优化过，用多核心写入，这样必须防止内存重叠
-    
+
       - ```c
         char *dst = (char*)malloc(strlen(src)+1);//+1是因为有0，空间需要+1
         strcpy(dst,src);
         ```
-    
+
       - 安全版本
-    
+
         - char *strncpy（char *restrict dest， const char *restrict src， size_t  n）；
         - 表示可以拷贝多少个
-    
+
     - strcat
-    
+
       - char *strcat(char *restrict s1,const char *restrict s2);
       - 讲s2拷贝到s1后面，连接成为一个长的字符串
       - 返回s1
       - s1要有足够的空间
       - 安全版本
         - char *strncat(char *restrict s1,const char *restrict s2, size_t n);
-    
+
     - strchr
-    
-    - strata
+
+      - 字符串搜索函数
+      - char *strchr（const char *s， int c）；
+      - 从左往右搜索c第一次出现的位置，返回的是指针
+
+    - strrchr
+
+      - 字符串搜索函数
+      - char *strrchr（const char *s，int c）；
+      - 从右往左搜索c第一次出现的位置，返回的是指针，指向第一次出现c的位置
+      - 小技巧
+        - 如果想要求之前的函数，可以通过给指针赋0的方式，将之前的这个字符串切断（使用0切断，之后也可以使用之前设置的临时指针用来恢复）
+
+    - strstr
+
+      - 用于在字符串中寻找字符串
+      - char *strstr（const char *s1，const char *s2）；
+
+    - strcasestr
+
+      - char *strcasestr（const char *s1， const char *s2）；
+      - 用于查找一个字符串中的另一个小字符串的，但是寻找的过程中是忽略大小写的
+
+### 枚举
+
+- 程序中出现数字，尽可能使用符号来表达数字，这样子就给这些数字赋予了意义
+
+- 可以使用枚举而不是定义独立的const 变量
+
+- 是一种用户定义的数据类型，用关键字enum来申明
+
+  - enum 枚举类型名字 {名字0，名字1，......，名字n}；
+
+    - 枚举类型的名字不真的使用，要用在大括号里的名字，本身就是int类型的常量符号，值依次从0到n
+
+    - 需要一些可以排列起来的常量值时，定义枚举就是给了这些常量值以名字
+
+    - ```c
+      void FUNC(enum color c);
+      enum color t = red；
+      ```
+
+    - 实际上c语言内部，enum就是int，可以作为int直接输入输出
+
+  - 小套路
+
+    - 在所有的enum枚举类型之后放一个numberofxxx用于表示有多少个枚举量
+
+    - ```c
+      enum color{red，green，blue = 5}；
+      ```
+
+- 虽然枚举类型可以当作类型用，但是实际上不好用；使用枚举的主要理由是因为需要定义排比的符号量，用枚举比const int更加方便
+
+- 枚举比宏（macro）要更好，因为枚举有int类型
+
+- 很多语言都有枚举，但是其他语言大多比c做的好
+
+### 结构类型
+
+- 一个结构就是一个复合的数据类型
+
+- 注意struct后面的大括号里面要有分号
+
+- ```c
+  struct 结构名
+  {
+  	各种变量名；
+  }；
+  ```
+
+- 通常把结构体放在函数的外面，不依附于其他函数，就可以给各种函数使用
+
+  - 如果定义在main函数里面，那么这一个结构体只能够给main函数使用
