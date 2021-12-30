@@ -536,4 +536,4 @@
 
     - strchr
 
-    - Strata
+    - strata
