@@ -266,39 +266,50 @@
       - 运用条件编译和宏，保证这个头文件在一个编译单元中只会被#include一次
       - #pragma once也能起到相同的作用，但是不是所有的编译器都支持，这是visualstudio的，gcc不支持，用ifdefine更合适
 
+### 格式化的输入输出
 
+- printf
 
+  ```c
+  %[flags][width][.prec][hlL]type
+    
+  flag
+    - 左对齐
+    + 在前面放 + 或者 -
+    （space） 正数留空
+    0 用0填充
+    
+  width 或 prec（number表示应该写入的想要的数字）
+    number 最小字符数
+    * 下一个参数是字符数
+    .number 小数点后的位数
+    .* 下一个参数是小数点后的位数
+    
+  hlL修饰类型
+    hh 单个字节
+    h short
+    l long
+    ll long long
+    L long double
+    
+  type
+  ```
 
+![截屏2022-01-04 下午2.20.25](https://tva1.sinaimg.cn/large/008i3skNly1gy1mabp4jcj31e40u0jtv.jpg)
 
+- 返回值是输出的字符数
 
+- scanf
 
+  ```c
+  %[flag]type
+  ```
 
+  ![截屏2022-01-04 下午3.10.47](https://tva1.sinaimg.cn/large/008i3skNly1gy1nqkyp0ij31dy0tkgna.jpg)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  - 返回值是读入的项目数
+  - 在要求严格的程序中，应该判断每一次调用scanf或者printf的返回值，从而了解程序运行中是否存在问题
+    - 比如那种一运行好几天的程序
 
 ### futures
 
